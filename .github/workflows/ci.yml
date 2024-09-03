@@ -10,6 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -33,11 +39,11 @@ jobs:
 
     - name: Start backend
       working-directory: ./api
-      run: npm start &
-      
+      run: npm start & sleep 30s &
+            
     - name: Start frontend
       working-directory: ./frontend
-      run: npm run serve &
+      run: npm run serve & sleep 30s &
     
     - name: Wait for services to be up
       run: sleep 30s  # Ajuste o tempo conforme necessário para garantir que os serviços estejam prontos
