@@ -1,0 +1,10 @@
+{
+  "main": "cypress.config.js",
+  "scripts": {
+    "cypress:run": "cypress run"
+  },
+  "dependencies": {
+    "cypress": "^13.14.1",
+    "cypress-plugin-api": "^2.11.2"
+  }
+}

@@ -1,0 +1,20 @@
+exports.el = {
+    btnNewBook: '#btnNewBook',
+    bookTitulo: '#bookTitulo',
+    bookAutor: '#bookAutor',
+    bookEditora: '#bookEditora',
+    bookAnoPublicacao: '#bookAnoPublicacao',
+    bookNumPag: '#bookNumPag',
+    bookStatus: '#bookStatus',
+    btncreateBook: '#btncreateBook',
+    toastMessage: "#toastMessage",
+    div: 'div.v-list-item__title',
+    btnDelete: 'button[name=deleteBook]',
+    btnConfirmDelete: '#btnDeleteConfirm',
+    inputSearchTitulo: 'input[data-cy="searchTitulo"]',
+    inputSearchAutor: 'input[data-cy="searchAutor"]',
+    inputSearchStatus: 'input[data-cy="searchStatus"]',
+    btnSearchFilter: '#searchLivro',
+    btnClearFilters: '#clearFiltros',
+    resultTable: 'table tbody tr td'
+}
