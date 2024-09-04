@@ -16,7 +16,7 @@ module.exports = defineConfig({
         database: 'test',
         collection: 'livros'
       }
-    }
-  },
-  video: false
+    },
+    video: true
+  }
 });
