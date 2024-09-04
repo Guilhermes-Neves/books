@@ -6,27 +6,27 @@ const Livro = require('../models/livro');
 // Endpoint para buscar livros com filtros combinados por título, autor ou status
 router.get('/livros/search', async (req, res) => {
   try {
-      const { titulo, autor, status } = req.query;
+    const { titulo, autor, status } = req.query;
 
-      // Cria um objeto de filtro dinâmico
-      const filtros = {};
+    // Cria um objeto de filtro dinâmico
+    const filtros = {};
 
-      if (titulo) {
-          filtros.titulo = { $regex: titulo, $options: 'i' }; // Filtro por título (insensível a maiúsculas/minúsculas)
-      }
-      if (autor) {
-          filtros.autor = { $regex: autor, $options: 'i' }; // Filtro por autor (insensível a maiúsculas/minúsculas)
-      }
-      if (status) {
-          filtros.status = status; // Filtro por status
-      }
+    if (titulo) {
+      filtros.titulo = { $regex: titulo, $options: 'i' }; // Filtro por título (insensível a maiúsculas/minúsculas)
+    }
+    if (autor) {
+      filtros.autor = { $regex: autor, $options: 'i' }; // Filtro por autor (insensível a maiúsculas/minúsculas)
+    }
+    if (status) {
+      filtros.status = status; // Filtro por status
+    }
 
-      // Busca livros no banco de dados com os filtros aplicados
-      const livros = await Livro.find(filtros);
+    // Busca livros no banco de dados com os filtros aplicados
+    const livros = await Livro.find(filtros);
 
-      res.json(livros);
+    res.json(livros);
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -40,6 +40,12 @@ router.post('/livros', async (req, res) => {
       return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
     }
 
+    const duplicado = await Livro.findOne({ titulo: titulo, autor: autor, editora: editora, anoPublicacao: anoPublicacao, numeroPaginas: numeroPaginas })
+
+    if (duplicado) {
+      return res.status(409).json({ message: 'Existe um livro cadastrado com essas informações.' });
+    }
+
     // Tenta Cria um novo livro
     const novoLivro = new Livro({
       titulo,
@@ -51,35 +57,31 @@ router.post('/livros', async (req, res) => {
     });
 
     await novoLivro.save();
-    res.status(201).json({message: 'Livro cadastrado com sucesso!', livro: novoLivro});
+    res.status(201).json({ message: 'Livro cadastrado com sucesso!', livro: novoLivro });
   } catch (error) {
-    if (error.code === 11000) {
-      res.status(400).json({ message: 'Existe um livro cadastrado com essas informações.' });
-    } else {
-      res.status(500).json({ message: 'Erro ao cadastrar o livro.' });
-    }
+    res.status(500).json({ message: 'Erro ao cadastrar o livro.' });
   }
 });
 
 // Endpoint para editar um livro por ID
 router.put('/livros/:id', async (req, res) => {
   try {
-      const { titulo, autor, editora, anoPublicacao, numeroPaginas, status } = req.body;
+    const { titulo, autor, editora, anoPublicacao, numeroPaginas, status } = req.body;
 
-      // Encontra o livro pelo ID e atualiza os campos
-      const livroAtualizado = await Livro.findByIdAndUpdate(
-          req.params.id, 
-          { titulo, autor, editora, anoPublicacao, numeroPaginas, status }, 
-          { new: true, runValidators: true }
-      );
+    // Encontra o livro pelo ID e atualiza os campos
+    const livroAtualizado = await Livro.findByIdAndUpdate(
+      req.params.id,
+      { titulo, autor, editora, anoPublicacao, numeroPaginas, status },
+      { new: true, runValidators: true }
+    );
 
-      if (!livroAtualizado) {
-          return res.status(404).json({ message: 'Livro não encontrado' });
-      }
+    if (!livroAtualizado) {
+      return res.status(404).json({ message: 'Livro não encontrado' });
+    }
 
-      res.json({message: 'Livro atualizado com sucesso!', livro: livroAtualizado});
+    res.json({ message: 'Livro atualizado com sucesso!', livro: livroAtualizado });
   } catch (error) {
-      res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 

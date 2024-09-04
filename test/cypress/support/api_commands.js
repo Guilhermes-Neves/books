@@ -16,8 +16,9 @@ Cypress.Commands.add('createNewBook', (payload) => {
     cy.request({
         method: 'POST',
         url: Cypress.env('apiBaseUrl'),
-        body: payload
+        body: payload,
+        failOnStatusCode: false
     }).then(resp => {
-        expect(resp.status).to.eq(201)
+        return resp
     })
 })

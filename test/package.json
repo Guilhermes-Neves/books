@@ -6,5 +6,8 @@
   "dependencies": {
     "cypress": "^13.14.1",
     "cypress-plugin-api": "^2.11.2"
+  },
+  "devDependencies": {
+    "cypress-mongodb": "^6.2.1"
   }
 }

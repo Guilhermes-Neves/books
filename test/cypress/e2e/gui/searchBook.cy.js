@@ -4,7 +4,9 @@ import {payload} from "../../factories/bookPayload"
 
 describe("Funcionalidade pesquisa de livros", () => {
     beforeEach(() => {
-        cy.deleteAllBooks()
+        cy.dropCollection('livros', { database: 'test', failSilently: 'true' }).then(result => {
+            cy.log(result); // Will return 'Collection dropped' or the error object if collection doesn’t exist. Will not fail the test
+        });
         cy.createNewBook(payload)
         bookPage.go()
     })

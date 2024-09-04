@@ -259,11 +259,7 @@ export default {
           this.fetchBooks();
         } catch (error) {
           console.log(error)
-          if (error.response.data.message == this.duplicateMessage) {
-            this.snackbarMessage = "Existe um livro cadastrado com essas informações."  
-          } else {
-            this.snackbarMessage = error.response.data.message
-          }
+          this.snackbarMessage = error.response.data.message
           this.snackbarColor = 'red';
           this.snackbar = true;
         }
