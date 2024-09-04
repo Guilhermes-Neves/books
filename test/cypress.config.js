@@ -17,6 +17,7 @@ module.exports = defineConfig({
         collection: 'livros'
       }
     },
-    video: true
+    video: true,
+    videoCompression: true
   }
 });
