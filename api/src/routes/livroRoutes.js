@@ -64,26 +64,73 @@ router.post('/livros', async (req, res) => {
 });
 
 // Endpoint para editar um livro por ID
-router.put('/livros/:id', async (req, res) => {
-  try {
-    const { titulo, autor, editora, anoPublicacao, numeroPaginas, status } = req.body;
+// router.put('/livros/:id', async (req, res) => {
+//   try {
+//     const { titulo, autor, editora, anoPublicacao, numeroPaginas, status } = req.body;
 
-    // Encontra o livro pelo ID e atualiza os campos
-    const livroAtualizado = await Livro.findByIdAndUpdate(
-      req.params.id,
-      { titulo, autor, editora, anoPublicacao, numeroPaginas, status },
-      { new: true, runValidators: true }
-    );
+//     if (!titulo || !autor || !editora || !anoPublicacao || !numeroPaginas || !status) {
+//       return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+//     }
+
+//     const findBook = await Livro.findById(req.params.id)
+//     if (!findBook) {
+//       return res.status(404).json({ message: 'Livro não encontrado.' });
+//     }
+
+//     const duplicado = await Livro.findOne({ titulo: titulo, autor: autor, editora: editora, anoPublicacao: anoPublicacao, numeroPaginas: numeroPaginas })
+
+//     if (duplicado && req.params.id != duplicado._id) {
+//       return res.status(409).json({ message: 'Existe um livro cadastrado com essas informações.' })
+//     } 
+
+//     const livroAtualizado = await Livro.fin(
+//       req.params.id,
+//       { titulo, autor, editora, anoPublicacao, numeroPaginas, status },
+//       { new: true, runValidators: true }
+//     );
+
+//     res.json({ message: 'Livro atualizado com sucesso!', livro: livroAtualizado });
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
+
+router.put('/livros/:id', async (req, res) => {
+  const { id } = req.params;
+  const { titulo, autor, editora, anoPublicacao, numPaginas, status } = req.body;
+
+  try {
+    const livroDuplicado = await Livro.findOne({
+      titulo,
+      autor,
+      editora,
+      anoPublicacao,
+      numPaginas,
+      _id: { $ne: id }  // Exclui o próprio livro que está sendo editado
+    });
+
+    if (livroDuplicado) {
+      return res.status(409).json({ message: 'Existe um livro cadastrado com essas informações.' });
+    }
+    const livroAtualizado = await Livro.findByIdAndUpdate(id, {
+      titulo,
+      autor,
+      editora,
+      anoPublicacao,
+      numPaginas,
+      status
+    }, { new: true });
 
     if (!livroAtualizado) {
-      return res.status(404).json({ message: 'Livro não encontrado' });
+      return res.status(404).json({ message: 'Livro não encontrado.' });
     }
 
-    res.json({ message: 'Livro atualizado com sucesso!', livro: livroAtualizado });
+    res.status(200).json({ message: 'Livro atualizado com sucesso!', livro: livroAtualizado });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: 'Erro ao atualizar o livro.', error });
   }
-});
+
+})
 
 // Listagem de livros
 router.get('/livros', async (req, res) => {

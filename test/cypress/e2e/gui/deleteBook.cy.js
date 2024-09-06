@@ -7,7 +7,7 @@ describe("Funcionalidade exclusão de livros", () => {
         cy.dropCollection('livros', { database: 'test', failSilently: 'true' }).then(result => {
             cy.log(result); // Will return 'Collection dropped' or the error object if collection doesn’t exist. Will not fail the test
         });
-        cy.createNewBook(payload)
+        cy.insertMany([payload], { collection: 'livros' })
         bookPage.go()
     })
 

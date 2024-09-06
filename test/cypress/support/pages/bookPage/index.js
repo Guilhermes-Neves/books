@@ -1,4 +1,4 @@
-import {el} from './elements'
+import { el } from './elements'
 
 class BookPage {
     go() {
@@ -9,18 +9,35 @@ class BookPage {
         cy.get(el.btnNewBook).click()
     }
 
+    openEditModal(book) {
+        cy.contains('table tbody tr td', book.titulo)    
+            .parent()                            
+            .find('button[name="editBook"]')     
+            .click();
+    }
+
     fillForm(book) {
-        cy.get(el.bookTitulo).type(book.titulo)
-        cy.get(el.bookAutor).type(book.autor)
-        cy.get(el.bookEditora).type(book.editora)
-        cy.get(el.bookAnoPublicacao).type(book.anoPublicacao)
-        cy.get(el.bookNumPag).type(book.numeroPaginas)
+        cy.get(el.bookTitulo)
+            .clear()
+            .type(book.titulo)
+        cy.get(el.bookAutor)
+            .clear()
+            .type(book.autor)
+        cy.get(el.bookEditora)
+            .clear()
+            .type(book.editora)
+        cy.get(el.bookAnoPublicacao)
+            .clear()
+            .type(book.anoPublicacao)
+        cy.get(el.bookNumPag)
+            .clear()
+            .type(book.numeroPaginas)
         cy.get(el.bookStatus).click()
         cy.contains(el.div, book.status).click()
     }
 
     submit() {
-        cy.get(el.btncreateBook).click()
+        cy.get(el.btnSubmitForm).click()
     }
 
     deleteBook() {

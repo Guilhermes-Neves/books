@@ -1,17 +1,3 @@
-Cypress.Commands.add('deleteAllBooks', () => {
-    cy.api({
-        method: 'GET',
-        url: Cypress.env('apiBaseUrl')
-    }).then(resp => {
-        resp.body.forEach(element => {
-            cy.api({
-                method: 'DELETE',
-                url: Cypress.env('apiBaseUrl') + `/${element._id}`
-            })
-        });
-    })
-})
-
 Cypress.Commands.add('createNewBook', (payload) => {
     cy.api({
         method: 'POST',
@@ -26,6 +12,16 @@ Cypress.Commands.add('createNewBook', (payload) => {
 Cypress.Commands.add('getBook', (id) => {
     cy.api({
         method: 'GET',
+        url: Cypress.env('apiBaseUrl') + `/${id}`,
+        failOnStatusCode: false
+    }).then(resp => {
+        return resp
+    })
+})
+
+Cypress.Commands.add('deleteBook', (id) => {
+    cy.api({
+        method: 'DELETE',
         url: Cypress.env('apiBaseUrl') + `/${id}`,
         failOnStatusCode: false
     }).then(resp => {
@@ -48,6 +44,17 @@ Cypress.Commands.add('getAllBooksByFilter', (field, value) => {
         method: 'GET',
         url: Cypress.env('apiBaseUrl') + `/search?${field}=${encodeURIComponent(value)}`,
         failOnStatusCode: false
+    }).then(resp => {
+        return resp
+    })
+})
+
+Cypress.Commands.add('editBook', (id, payload) => {
+    cy.api({
+        method: 'PUT',
+        url: Cypress.env('apiBaseUrl') + `/${id}`,
+        failOnStatusCode: false,
+        body: payload
     }).then(resp => {
         return resp
     })

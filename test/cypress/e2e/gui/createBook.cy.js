@@ -27,7 +27,7 @@ describe("Funcionalidade de criação de livros", () => {
 
     context("Com um livro criado, tentar cadastrar o mesmo novamente", () => {
         beforeEach(() => {
-            cy.createNewBook(payload)
+            cy.insertMany([payload], { collection: 'livros' })
             cy.reload()
         })
         

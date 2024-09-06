@@ -93,7 +93,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" id="btnCloseModal" text @click="closeModal">Cancelar</v-btn>
-            <v-btn color="blue darken-1" id="btncreateBook" text @click="createBook" :disabled="!valid">{{ editMode ?
+            <v-btn color="blue darken-1" id="submitForm" text @click="createBook" :disabled="!valid">{{ editMode ?
               'Salvar' :
               'Criar'
               }}</v-btn>

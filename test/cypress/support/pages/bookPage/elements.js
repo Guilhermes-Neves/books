@@ -6,7 +6,7 @@ exports.el = {
     bookAnoPublicacao: '#bookAnoPublicacao',
     bookNumPag: '#bookNumPag',
     bookStatus: '#bookStatus',
-    btncreateBook: '#btncreateBook',
+    btnSubmitForm: '#submitForm',
     toastMessage: "#toastMessage",
     div: 'div.v-list-item__title',
     btnDelete: 'button[name=deleteBook]',
@@ -16,5 +16,6 @@ exports.el = {
     inputSearchStatus: 'input[data-cy="searchStatus"]',
     btnSearchFilter: '#searchLivro',
     btnClearFilters: '#clearFiltros',
-    resultTable: 'table tbody tr td'
+    resultTable: 'table tbody tr td',
+    btnEditBook: (bookName) => `//td[contains(text(),"${bookName}")]/..//button[@name="editBook"]`
 }
