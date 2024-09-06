@@ -1,4 +1,4 @@
-import { payload } from "../../factories/bookPayload"
+import { payload } from "../../../factories/book/api/bookPayload"
 
 describe("/livros POST", () => {
     beforeEach(() => {

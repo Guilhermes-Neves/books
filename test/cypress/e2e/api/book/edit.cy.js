@@ -1,4 +1,4 @@
-import { payload, bookToInsert, booksToInsert } from "../../factories/bookPayload"
+import { payload, bookToInsert, booksToInsert } from "../../../factories/book/api/bookPayload"
 
 describe("/livros PUT", () => {
     beforeEach(() => {

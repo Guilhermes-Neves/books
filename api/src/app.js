@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const livroRoutes = require('./routes/livroRoutes');
+const usuarioRoutes = require('./routes/usuarioRoutes');
 
 const app = express();
 const port = 5001;
@@ -29,6 +30,7 @@ mongoose.connect(config.mongoURI)
 
 // Rotas
 app.use('/api', livroRoutes);
+app.use('/api', usuarioRoutes);
 
 // Inicia o servidor
 app.listen(port, () => {

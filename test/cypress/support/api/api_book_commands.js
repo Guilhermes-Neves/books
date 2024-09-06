@@ -1,7 +1,7 @@
 Cypress.Commands.add('createNewBook', (payload) => {
     cy.api({
         method: 'POST',
-        url: Cypress.env('apiBaseUrl'),
+        url: Cypress.env('apiBaseUrl') + '/livros',
         body: payload,
         failOnStatusCode: false
     }).then(resp => {
@@ -12,7 +12,7 @@ Cypress.Commands.add('createNewBook', (payload) => {
 Cypress.Commands.add('getBook', (id) => {
     cy.api({
         method: 'GET',
-        url: Cypress.env('apiBaseUrl') + `/${id}`,
+        url: Cypress.env('apiBaseUrl') + '/livros' + `/${id}`,
         failOnStatusCode: false
     }).then(resp => {
         return resp
@@ -22,7 +22,7 @@ Cypress.Commands.add('getBook', (id) => {
 Cypress.Commands.add('deleteBook', (id) => {
     cy.api({
         method: 'DELETE',
-        url: Cypress.env('apiBaseUrl') + `/${id}`,
+        url: Cypress.env('apiBaseUrl') + '/livros' + `/${id}`,
         failOnStatusCode: false
     }).then(resp => {
         return resp
@@ -32,7 +32,7 @@ Cypress.Commands.add('deleteBook', (id) => {
 Cypress.Commands.add('getAllBooks', () => {
     cy.api({
         method: 'GET',
-        url: Cypress.env('apiBaseUrl'),
+        url: Cypress.env('apiBaseUrl') + '/livros',
         failOnStatusCode: false
     }).then(resp => {
         return resp
@@ -42,7 +42,7 @@ Cypress.Commands.add('getAllBooks', () => {
 Cypress.Commands.add('getAllBooksByFilter', (field, value) => {
     cy.api({
         method: 'GET',
-        url: Cypress.env('apiBaseUrl') + `/search?${field}=${encodeURIComponent(value)}`,
+        url: Cypress.env('apiBaseUrl') + '/livros' + `/search?${field}=${encodeURIComponent(value)}`,
         failOnStatusCode: false
     }).then(resp => {
         return resp
@@ -52,7 +52,7 @@ Cypress.Commands.add('getAllBooksByFilter', (field, value) => {
 Cypress.Commands.add('editBook', (id, payload) => {
     cy.api({
         method: 'PUT',
-        url: Cypress.env('apiBaseUrl') + `/${id}`,
+        url: Cypress.env('apiBaseUrl') + '/livros' + `/${id}`,
         failOnStatusCode: false,
         body: payload
     }).then(resp => {

@@ -10,7 +10,7 @@ module.exports = defineConfig({
     },
     baseUrl: 'http://localhost:8080',
     env: {
-      apiBaseUrl: 'http://localhost:5001/api/livros',
+      apiBaseUrl: 'http://localhost:5001/api',
       mongodb: {
         uri: 'mongodb+srv://dba:gui123@livroapi.5sbbg.mongodb.net/?retryWrites=true&w=majority&appName=LivroApi',
         database: 'test',

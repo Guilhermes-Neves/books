@@ -1,5 +1,5 @@
 import bookPage from "../../support/pages/bookPage";
-import {payload, bookToInsert, booksToInsert} from "../../factories/bookPayload"
+import {payload, bookToInsert, booksToInsert} from "../../factories/book/api/bookPayload"
 
 
 describe("Funcionalidade edicao de livros", () => {

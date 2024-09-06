@@ -1,5 +1,5 @@
 import bookPage from "../../support/pages/bookPage";
-import {payload} from "../../factories/bookPayload"
+import {payload} from "../../factories/book/api/bookPayload"
 
 
 describe("Funcionalidade exclusão de livros", () => {
