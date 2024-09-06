@@ -1,6 +1,6 @@
 import bookPage from "../../support/pages/bookPage";
-import {book} from "../../factories/books"
-import {payload} from "../../factories/bookPayload"
+import {book} from "../../factories/book/gui/books"
+import {payload} from "../../factories/book/api/bookPayload"
 
 describe("Funcionalidade de criação de livros", () => {
     beforeEach(() => {

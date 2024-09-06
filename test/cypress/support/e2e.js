@@ -17,7 +17,8 @@
 import 'cypress-plugin-api'
 import { addCommands } from 'cypress-mongodb/dist/index-browser';
 addCommands();
-import './api_commands';
+import './api/api_book_commands';
+import './api/api_user_commands';
 import './gui_commands';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
